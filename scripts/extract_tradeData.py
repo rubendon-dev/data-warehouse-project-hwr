@@ -2,8 +2,8 @@ import pandas as pd
 import os
 
 # Define the input and output filenames
-input_filename = '../datasets/TradeData_raw.csv'
-output_filename = '../datasets/TradeData.csv'
+input_filename = '../datasets/price/raw/TradeData_raw.csv'
+output_filename = '../datasets/price/raw/TradeData.csv'
 
 # Define the columns to extract based on the names provided by the user.
 columns_to_extract_names = ['period', 'partnerDesc', 'fobvalue', 'netWgt']

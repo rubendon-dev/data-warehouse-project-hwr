@@ -5,7 +5,7 @@ import matplotlib.dates as mdates
 
 # Load the data
 tradeData_file_path = '../datasets/tradeData.csv'
-monthlyPrice_file_path = '../datasets/Monthly_Average_Price.csv'
+monthlyPrice_file_path = '../datasets/price/raw/Monthly_Average_Price.csv'
 
 def basic_eda(file_path):
     df = pd.read_csv(file_path)
