@@ -1,27 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-# # Load data
-# try:
-#     fact_df = pd.read_csv('../datasets/star_schema/Fact_table.csv')
-#     country_df = pd.read_csv('../datasets/star_schema/dim_country.csv')
-#     date_df = pd.read_csv('../datasets/star_schema/dim_date.csv')
-#
-#     # Merge dataframes
-#     merged_df = fact_df.merge(country_df, on='country_id', how='left')
-#     merged_df = merged_df.merge(date_df, on='date_id', how='left')
-#
-#     # Drop redundant ID columns and rename for clarity
-#     merged_df = merged_df.drop(columns=['fact_id', 'country_id', 'date_id'])
-#     merged_df = merged_df.rename(columns={'Year': 'Date'})
-#
-#     # Save the merged DataFrame for subsequent EDA steps
-#     merged_df.to_csv('merged_data_for_eda.csv', index=False)
-#
-#     print("Data successfully merged and saved to 'merged_data_for_eda.csv'.")
-#
-# except Exception as e:
-#     print(f"An error occurred during loading or merging: {e}")
 
 df = pd.read_csv('../datasets/merged_data_for_eda.csv')
 
@@ -107,4 +86,50 @@ sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidt
 plt.title('Correlation Matrix of Numerical Variables')
 plt.tight_layout()
 plt.savefig('../docs/EDA/correlation_heatmap.png')
+plt.close()
+
+
+# Define the variables for clarity
+X_VAR = 'yearly_total_rainfall'
+Y_VAR = 'Yield (tonnes/hectare)'
+HUE_VAR = 'Country'
+
+# 1. Create the Scatter Plot
+plt.figure(figsize=(12, 7))
+
+# Use seaborn scatterplot for visualization, colored by country
+# The hue automatically addresses the DIM_Country requirement
+sns.scatterplot(
+    x=X_VAR,
+    y=Y_VAR,
+    data=df,
+    hue=HUE_VAR,
+    style=HUE_VAR,
+    s=100, # size of points
+    palette='deep'
+)
+
+# 2. Add a general trend line (regression line) for the entire dataset
+# This helps assess the overall correlation across all countries.
+sns.regplot(
+    x=X_VAR,
+    y=Y_VAR,
+    data=df,
+    scatter=False, # We already plotted the scatter points
+    color='gray',
+    line_kws={'linestyle': '--', 'alpha': 0.7}
+)
+
+# 3. Add Titles and Labels
+plt.title('Relationship between Total Yearly Rainfall and Cocoa Yield (by Country)', fontsize=14)
+plt.xlabel('Yearly Total Rainfall (mm)', fontsize=12)
+plt.ylabel('Cocoa Yield (tonnes/hectare)', fontsize=12)
+
+# Move legend outside the plot for better visibility
+plt.legend(title='Country', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(True, linestyle=':', alpha=0.6)
+plt.tight_layout()
+
+# Save the plot
+plt.savefig('../docs/EDA/rainfall_vs_yield_scatter.png')
 plt.close()
