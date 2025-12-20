@@ -26,25 +26,24 @@ def clean_trade_data_v2(df: pd.DataFrame, remove_outliers: bool = False):
     initial_rows = len(df)
     print(f"--- Starting Clean: Initial Rows = {initial_rows} ---")
 
-    # 1. Convert to numeric (turns non-numeric strings into NaN)
+    # 0. Convert to numeric (turns non-numeric strings into NaN)
     df['valuePerUnit'] = pd.to_numeric(df['valuePerUnit'], errors='coerce')
-    print("Step 1: 'valuePerUnit' converted to numeric. Non-numeric values coerced to NaN.")
 
-    # 2. Drop all rows with missing values (NaN)
+    # 1. Drop all rows with missing values (NaN)
     df_cleaned = df.dropna().reset_index(drop=True)
     rows_dropped_missing = initial_rows - len(df_cleaned)
     df = df_cleaned
-    print(f"Step 2: Dropped rows with missing data (NaN). Rows removed: {rows_dropped_missing}")
+    print(f"Step 1: Dropped rows with missing data (NaN). Rows removed: {rows_dropped_missing}")
 
-    # 3. Standardize 'partnerDesc' (ROBUST FIX)
+    # 2. Standardize 'partnerDesc' (ROBUST FIX)
     # This uses a non-greedy wildcard regex to fix the failed character match ('C矌e d\'Ivoire').
     rows_before_text_fix = len(df)
     df['partnerDesc'] = df['partnerDesc'].astype(str).apply(
         lambda x: re.sub(r'C.*?e d\'Ivoire', "Cote d'Ivoire", x, flags=re.IGNORECASE))
-    print(f"Step 3: 'partnerDesc' standardized for 'Côte d\'Ivoire' variations (FIXED).")
+    print(f"Step 2: 'partnerDesc' standardized for 'Côte d\'Ivoire' variations (FIXED).")
 
 
-    # 4. Outlier Treatment (Addressing the Indonesia 2003 issue)
+    # 3. Outlier Treatment (Addressing the Indonesia 2003 issue)
     if remove_outliers:
         df = remove_extreme_outliers(df)
 
@@ -87,7 +86,7 @@ def remove_extreme_outliers(df: pd.DataFrame) -> pd.DataFrame:
     rows_dropped_outliers = rows_before_outlier_removal - len(df_filtered)
 
     print(
-        f"Step 4 (Outlier Removal): Removed extreme 'valuePerUnit' outliers ({multiplier}*IQR). Rows removed: {rows_dropped_outliers}")
+        f"Step 3 (Outlier Removal): Removed extreme 'valuePerUnit' outliers ({multiplier}*IQR). Rows removed: {rows_dropped_outliers}")
 
     return df_filtered
 
