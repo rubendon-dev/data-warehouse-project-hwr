@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import re
-FILE_PATH = '../datasets/price/raw/trade_data_raw.csv'
+FILE_PATH = '../datasets/price/raw/trade_data_extracted.csv'
 OUTPUT_FILE_PATH = '../datasets/price/clean/price_by_country_year.csv'
 
 

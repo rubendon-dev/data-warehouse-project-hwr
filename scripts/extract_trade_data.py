@@ -2,11 +2,11 @@ import pandas as pd
 import os
 
 # Define the input and output filenames
-input_filename = '../datasets/price/raw/tradeData_raw.csv'
+input_filename = '../datasets/price/raw/trade_data_raw.csv'
 output_filename = '../datasets/price/raw/trade_data_extracted.csv'
 
 # Define the columns to extract based on the names provided by the user.
-columns_to_extract_names = ['period', 'partnerDesc', 'fobvalue', 'netWgt']
+columns_to_extract_names = ['refYear', 'partnerDesc', 'fobvalue', 'netWgt','valuePerUnit']
 
 # Check if the output file already exists
 if os.path.exists(output_filename):
