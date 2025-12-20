@@ -1,9 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 import re
-FILE_PATH = '../datasets/price/raw/trade_data_1991-2024.csv'
+FILE_PATH = '../datasets/price/raw/trade_data_raw.csv'
 OUTPUT_FILE_PATH = '../datasets/price/clean/price_by_country_year.csv'
 
 

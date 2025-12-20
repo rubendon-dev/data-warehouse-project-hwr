@@ -1,11 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('../datasets/price/raw/Daily_price.csv')
+# --- 1. Read the raw data of daily price ---
+df = pd.read_csv('../datasets/price/raw/daily_price_raw.csv')
 output_filename = '../datasets/price/clean/price_by_country_year.csv'
 df_target = pd.read_csv('../datasets/price/clean/price_by_country_year.csv')
-# --- 1. Read the raw data of daily price ---
-
 
 # --- 2. Extract and Clean the ICCO daily price (US$/tonne) ---
 df = df[['Date', 'ICCO daily price (US$/tonne)']].copy()
@@ -46,10 +45,6 @@ plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
-
-# --- 5. Save the annual price data into the price_by_country_year file ---
-
-
 
 # B. Prepare the annual_avg_df for merging
 df_icco_final = annual_avg_df.reset_index()
@@ -166,5 +161,4 @@ def plot_country_vs_world_avg(df: pd.DataFrame):
 
     # Display the plot
     plt.show()
-
 plot_country_vs_world_avg(sort(output_filename))

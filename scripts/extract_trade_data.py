@@ -2,8 +2,8 @@ import pandas as pd
 import os
 
 # Define the input and output filenames
-input_filename = '../datasets/price/raw/TradeData_raw.csv'
-output_filename = '../datasets/price/raw/TradeData.csv'
+input_filename = '../datasets/price/raw/tradeData_raw.csv'
+output_filename = '../datasets/price/raw/trade_data_extracted.csv'
 
 # Define the columns to extract based on the names provided by the user.
 columns_to_extract_names = ['period', 'partnerDesc', 'fobvalue', 'netWgt']
@@ -28,4 +28,3 @@ else:
         print(f"Error: The input file '{input_filename}' was not found.")
     except KeyError as e:
         print(f"Error: One or more specified columns were not found in the file: {e}")
-
