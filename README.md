@@ -16,8 +16,7 @@ data-warehouse-project-hwr/
 ├── docs/                         
 │   ├── EDA                              # Initial EDA results
 ├── scripts/                             # python scripts for ETL
-│   ├── clean_and_aggregate_climate.py                          
-│   ├── clean_climate_into_archive.py                        
+│   ├── clean_and_aggregate_climate.py                                               
 │   ├── clean_price.py  
 │   ├── combine_price_sources.py
 │   ├── extract_trade_data.py
